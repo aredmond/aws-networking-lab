@@ -112,3 +112,7 @@ cd stacks\vpc-a
 terraform init
 terraform apply
 ```
+
+## Using CloudFormation
+
+Please the following lab: [cfn\CloudFormation.md](cfn\CloudFormation.md)
