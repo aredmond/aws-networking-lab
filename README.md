@@ -115,4 +115,4 @@ terraform apply
 
 ## Using CloudFormation
 
-Please the following lab: [cfn\CloudFormation.md](cfn\CloudFormation.md)
+Please the following lab: [cfn/CloudFormation.md](cfn/CloudFormation.md)
