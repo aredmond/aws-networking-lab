@@ -6,6 +6,7 @@ This repo has two functions.
 
 ## Prerequisites
 
+1. Make sure you have git to clone this repo
 1. awscli installed
 2. awscli profile configured
 3. terraform installed
@@ -14,12 +15,17 @@ This repo has two functions.
 
 AWS has a great documentation page on this so I will not re-invent the wheel: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html  
 
+You can validate this setup is complete by running the following:  
+```
+aws --version
+```
+
 ### Setting Up your AWS Profile.
 
 Here you are linking your personal AWS account to the AWS CLI application.
 
 1. Create a administrator user in the AWS console. You can use this guide for an emergency user for a list of detailed steps: https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started-emergency-iam-user.html  
-2. The .csv file you downloaded in step 1 will have the access key and secret key you will need for step 3. Keep this handy
+2. Create Access keys for the new user. You can follow this document: https://docs.aws.amazon.com/cli/latest/userguide/cli-authentication-user.html#cli-authentication-user-create  
 3. Add a profile called `personal-admin` for the new user in the awscli config file. This can be done by running the following command:  
 ```powershell
 aws configure --profile personal-admin
@@ -33,11 +39,12 @@ Default region name [None]: us-east-1
 Default output format [None]: json
 ```
 4. You can now set an environment variable that will tell AWSCLI to use this profile for all commands, this will also tell terraform and other applications using AWS SDKs to use this profile. This is how we get terraform to use the profile.  
-Powershell:  
+
+Powershell(window):  
 ```
 $Env:AWS_PROFILE="personal-admin"
 ```  
-cmd:  
+cmd(window, but you should use powershell):  
 ```
 SET AWS_PROFILE=personal-admin
 ```  
@@ -45,7 +52,7 @@ bash/terminal(MacOS):
 ```
 export AWS_PROFILE="personal-admin"
 ```  
-5. Now test the profile with the following command, this command asks an aws authentication API to tell you what role and account you are calling from:  
+1. Now test the profile with the following command, this command asks an aws authentication API to tell you what role and account you are calling from:  
 ```
 aws sts get-caller-identity
 ```  
@@ -65,6 +72,22 @@ Now you are ready to run terraform and have it use that profile to deploy resour
 ### Installing terraform
 
 There is a lot of different ways to install terraform if you have a method you like for installing software like `choco` please you that. Or you can follow the official guide here: https://developer.hashicorp.com/terraform/install 
+
+That link just give your a binary for windows be sure to put that binary in your path. You can list your path as follows:  
+```
+$env:PATH
+```
+If you know how you can add the new terraform binary to your path, otherwise put it one of the existing folders in your path. **Note** If you use [choco](https://chocolatey.org/) all this will be handle for you. 
+
+You can validate this by running the following: `terraform version` the output should look like this:  
+```
+PS C:\Users\andre\code\github.com\aredmond\aws-networking-lab> terraform version
+Terraform v1.12.0
+on windows_amd64
+
+Your version of Terraform is out of date! The latest version
+is 1.12.1. You can update by downloading from https://developer.hashicorp.com/terraform/install
+```
 
 ## Building vpc-a
 
